@@ -8,4 +8,13 @@ class Advice {
     id = json['id'];
     advice = json['advice'];
   }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+
+    data['id'] = id;
+    data['advice'] = advice;
+
+    return data;
+  }
 }

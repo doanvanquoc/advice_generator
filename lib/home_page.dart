@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:advice_generator/advice.dart';
 import 'package:advice_generator/api_servide.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -10,11 +13,24 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  Advice advice = Advice(id: 0, advice: 'Press the button the generate advice');
+  late Advice advice =
+      Advice(id: 0, advice: 'Press the button the generate advice');
 
   @override
   void initState() {
     super.initState();
+    initAdvice();
+  }
+
+  Future initAdvice() async {
+    print('got');
+    final pref = await SharedPreferences.getInstance();
+    final adviceJson = pref.getString('advice');
+    setState(() {
+      adviceJson != null
+          ? advice = Advice.fromJson(jsonDecode(adviceJson))
+          : Advice(id: 0, advice: 'Press the button the generate advice');
+    });
   }
 
   @override
@@ -33,7 +49,8 @@ class _HomePageState extends State<HomePage> {
               child: CircularProgressIndicator(),
             ),
           );
-          advice = await apiService.fetchAdvice();
+          advice = await service.fetchAdvice();
+          await service.saveToLocal(advice);
           setState(() {
             Navigator.pop(context);
           });

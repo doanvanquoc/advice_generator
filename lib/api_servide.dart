@@ -2,15 +2,16 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:advice_generator/advice.dart';
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
-class APIService {
+class Service {
   //KHởi tạo singleton
-  static final _service = APIService._internal();
-  factory APIService() => _service;
-  APIService._internal();
+  static final _service = Service._internal();
+  factory Service() => _service;
+  Service._internal();
 
+//Hàm fetch Data từ api
   Future fetchAdvice() async {
     const endPoint = 'https://api.adviceslip.com/advice';
     final uri = Uri.parse(endPoint);
@@ -25,7 +26,16 @@ class APIService {
       log(e.toString());
     }
   }
+
+//Hàm lưu dữ liệu xuống local
+
+  Future saveToLocal(Advice advice) async {
+    log('saved');
+    final pref = await SharedPreferences.getInstance();
+    final adviceJson = jsonEncode(advice.toJson());
+    await pref.setString('advice', adviceJson);
+  }
 }
 
 //Khởi tạo biến apiService
-final apiService = APIService();
+final service = Service();
