@@ -1,6 +1,6 @@
 # advice_generator
 
-A new Flutter project.
+Đây là 1 ứng dụng tự động tạo advice (lời khuyên) bằng tiếng anh từ api
 
 ## Getting Started
 
