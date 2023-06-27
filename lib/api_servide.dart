@@ -17,13 +17,15 @@ class Service {
     final uri = Uri.parse(endPoint);
     try {
       var response = await http.get(uri);
-      if (response.statusCode == 200) {
+      if (response.statusCode >= 200 && response.statusCode <= 299) {
         final data = jsonDecode(response.body)['slip'];
         final advice = Advice.fromJson(data);
         return advice;
+      } else {
+        return Advice(id: 0, advice: 'Có lỗi gì đó rồi ._.');
       }
     } catch (e) {
-      log(e.toString());
+      return Advice(id: 0, advice: 'Có lỗi xảy ra');
     }
   }
 

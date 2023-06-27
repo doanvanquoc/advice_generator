@@ -44,6 +44,7 @@ class _HomePageState extends State<HomePage> {
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () async {
           showDialog(
+            barrierDismissible: false,
             context: context,
             builder: (context) => const Center(
               child: CircularProgressIndicator(),
