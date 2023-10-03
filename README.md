@@ -1,6 +1,6 @@
 # advice_generator
 
-Đây là 1 ứng dụng tự động tạo advice (lời khuyên) bằng tiếng anh từ api huhuhu
+Đây là 1 ứng dụng tự động tạo advice (lời khuyên) bằng tiếng anh từ api huhuhu2
 
 ## Getting Started
 
